@@ -1,7 +1,7 @@
 header{
     .navbar{
         display: flex;
-        background-color: #d33a3a;
+        background: linear-gradient(to right, #e4e4e4 #ffffff);
         justify-content: space-between;
         align-items: center;
         padding: 1px 3%;
