@@ -5,49 +5,53 @@ import Image from "next/image";
 import NavItem, { NavItemInterface } from "../NavItem";
 import "./index.css";
 import { usePathname } from "next/navigation";
+import { FaBars } from "react-icons/fa";
+import { useState } from "react";
 
-export default function Navbar(){
-    const items: NavItemInterface[] = [
-        {
-            url: "/",
-            label: "Inicio"
-        },
-        {
-            url: "/favorite",
-            label: "Favoritos"
-        },
-        {
-            url: "/about",
-            label: "Sobre"
-        }
-    ]
+export default function Navbar() {
+  const items: NavItemInterface[] = [
+    {
+      url: "/",
+      label: "Inicio",
+    },
+    {
+      url: "/favorite",
+      label: "Favoritos",
+    },
+    {
+      url: "/about",
+      label: "Sobre",
+    },
+  ];
 
-    const pathname = usePathname();
+  const pathname = usePathname();
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
 
-    return(
-        <header>
-            <nav className="navbar">
-                <Link href="/" className="logo">
-                    <Image src="iconNavbar.svg" 
-                    width={10} 
-                    height={10} 
-                    alt="logo do Navbar"/>
-                </Link>
+  return (
+    <header>
+      <nav className="navbar">
+        <div className="navbar-center">
+        <Link href="/" className="nameNavbar">
+          <h1>POKÉDEX</h1>
+        </Link>
+        {openMenu && (
+          <ul className="nav-items">
+            {items.map((item, index) => (
+              <NavItem
+                key={index}
+                url={item.url}
+                label={item.label}
+                isActive={pathname === item.url}
+              />
+            ))}
+          </ul>
+        )}
+      </div>
 
-                <ul className="nav-items">
-                    {items.map((item, index)=>(
-                        <NavItem 
-                            key={index}
-                            url={item.url}
-                            label={item.label}
-                            isActive={pathname === item.url}
-                        />
-                    ))}
-                </ul>
-
-                <button className="btn-login">Login</button>
-
-            </nav>
-        </header>
-    )
+        <button className="btn-bars" onClick={() => setOpenMenu(!openMenu)}>
+          <FaBars />
+        </button>
+      </nav>
+    </header>
+  );
 }

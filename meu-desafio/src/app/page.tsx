@@ -1,10 +1,8 @@
-// app/page.tsx ou pages/index.tsx
-'use client'; // Adicione esta linha se estiver usando a App Router
+'use client';
 
 import React, { useState, useEffect } from 'react';
-import './styles.css'; // Importe seu CSS globalmente
+import './styles.css';
 
-// Interfaces e constantes fora do componente para não serem recriadas
 interface Colors {
     fire: string;
     grass: string;
@@ -23,7 +21,6 @@ interface Colors {
 }
 
 const colors: Colors = {
-    // ...seus códigos de cores aqui...
     fire: '#FDDFDF',
     grass: '#DEFDE0',
     electric: '#FCF7DE',
@@ -55,7 +52,6 @@ interface PokemonData {
 }
 
 const Pokedex = () => {
-    // 1. Crie um estado para armazenar os dados dos Pokémon
     const [pokemons, setPokemons] = useState<PokemonData[]>([]);
 
     const fetchPokemons = async () => {
@@ -66,7 +62,7 @@ const Pokedex = () => {
                 fetchedPokemons.push(data);
             }
         }
-        setPokemons(fetchedPokemons); // 3. Atualize o estado com os dados
+        setPokemons(fetchedPokemons);
     };
 
     const getPokemon = async (id: number): Promise<PokemonData | null> => {
@@ -83,12 +79,10 @@ const Pokedex = () => {
         }
     };
 
-    // 2. Use useEffect para buscar os dados quando o componente for montado
     useEffect(() => {
         fetchPokemons();
     }, []);
 
-    // 4. Renderize os Pokémon a partir do estado
     return (
         <div className="pokeContainer">
             {pokemons.map(poke => {
